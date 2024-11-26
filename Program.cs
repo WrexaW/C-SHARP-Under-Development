@@ -1,4 +1,6 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebApplication_C14.interfaces;
@@ -12,6 +14,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//Identity
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    //تعداد بار های ناموفق
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    //زمان قفل شدن 
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    //این تنظیم مشخص می‌کند که آیا حساب‌های کاربری جدید نیز مشمول قفل شدن هستند یا خیر
+    options.Lockout.AllowedForNewUsers = true;
+
+
+
+
+});
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -69,5 +85,4 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();
