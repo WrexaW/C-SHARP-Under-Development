@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebApplication_C14.Entities;
 
 namespace WebApplication_C14.server
 {
-    public class UserDb : DbContext
+    public class UserDb : IdentityDbContext
     {
         public DbSet<UserEntity> Users { get; set; }
 

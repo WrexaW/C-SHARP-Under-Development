@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
 
 namespace WebApplication_C14.Entities
 {
-    public class UserEntity
+    public class UserEntity : IdentityUser
     {
         [Key]
         public int Id { get; set; }

@@ -3,11 +3,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebApplication_C14.Entities;
 using WebApplication_C14.interfaces;
+using WebApplication_C14.server;
 using WebApplication_C14.Service;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDbContext<UserDb>();
+//این خط کد، یک سیستم مدیریت کاربران کامل را به برنامه شما اضافه می‌کند
+builder.Services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStores<UserDb>().AddDefaultTokenProviders();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -23,8 +27,17 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     //این تنظیم مشخص می‌کند که آیا حساب‌های کاربری جدید نیز مشمول قفل شدن هستند یا خیر
     options.Lockout.AllowedForNewUsers = true;
-
-
+    //این تنظیم مشخص می‌کند که رمز عبور باید حداقل شامل یک عدد باشد. این یک الزام امنیتی است که باعث افزایش پیچیدگی رمز عبور و کاهش احتمال هک شدن می‌شود.
+    options.Password.RequireDigit = true;
+    //این تنظیم مشخص می‌کند که رمز عبور باید حداقل شامل یک حرف کوچک باشد
+    options.Password.RequireLowercase = true;
+    //این تنظیم مشخص می‌کند که آیا رمز عبور باید شامل حداقل یک کاراکتر غیر الفبایی و عددی باشد یا خیر.
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    //این تنظیم مشخص می‌کند که کاربرانی که می‌خواهند در سیستم شما حساب ایجاد کنند، باید رمز عبوری حداقل به طول 6 کاراکتر انتخاب کنند.
+    options.Password.RequiredLength = 20;
+    //این تنظیم مشخص می‌کند که رمز عبور باید حداقل شامل یک کاراکتر منحصر به فرد باشد. به عبارت دیگر، حداقل یک کاراکتر در رمز عبور باید حداقل دو بار تکرار نشود
+    options.Password.RequiredUniqueChars = 1;
 
 
 });
