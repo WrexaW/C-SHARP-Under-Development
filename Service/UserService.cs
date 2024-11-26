@@ -76,7 +76,25 @@ namespace WebApplication_C14.Service
 
         public UserEntity Update(UpdateDto input)
         {
-            throw new NotImplementedException();
+ 
+          UserEntity userEntity = _context.Users.FirstOrDefault(x => x.Id == input.id)!;
+            try
+            {
+                if (userEntity != null)
+                {
+
+                    userEntity.Age = input.age;
+                    userEntity.Name = input.name;
+                    userEntity.Mobile = input.mobile;
+                    userEntity.Password = input.password;
+                    _context.Users.Add(userEntity);
+                    _context.SaveChanges();
+
+                }
+            }
+            catch (Exception ex) { }
+
+            return userEntity!;
         }
 
         

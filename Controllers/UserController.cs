@@ -37,5 +37,7 @@ namespace WebApplication_C14.Controllers
         public UserEntity Get(int id) => _service.ShowProfile(id);
         [HttpDelete]
         public bool Delete(int id) => _service.Delete(id);
+        [HttpPatch("UpdateProfile{id}")]
+        public UserEntity UpdateProfile(UpdateDto id) => _service.Update(id);
     }
 }
