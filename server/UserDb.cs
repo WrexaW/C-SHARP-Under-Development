@@ -10,7 +10,7 @@ namespace WebApplication_C14.server
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=130.185.75.54;Database=Project#C14;Encrypt=false;user id = i3center-1561 ; password = 123");
+            optionsBuilder.UseSqlServer("server=130.185.75.54;Database=Project#C14;Encrypt=false;user id = i3center-1561 ; password = ");
             base.OnConfiguring(optionsBuilder);
         }
     }
